@@ -1,6 +1,6 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
-
+const $ = require('jquery');
 const userList = require('./faker-data.json');
 console.log("React Object: ", React);
 console.log("userList: ", userList);
@@ -19,24 +19,30 @@ console.log("userList: ", userList);
 
 let HomeView = React.createClass({
   render: function(){
+    console.log('userList props from HomeView', this.props.userDataList )
     //this render method needs to return a JSX element and can only return ONE TOP LEVEL ELEMENT
     //will recieve an error of 'Adjacent JSX elements must be wrapped in an enclosing tag'
 
-    let greetingMessage = 'Welcom to React!';
+    let greetingMsg = 'Welcom to React!';
+    let otherMsg = 'other message'
     let jsxEnemyArray = this.props.userDataList.map(function(userObject, i) {
-      return <li key={i}>
-                <img src={`https://robohash.org/${userObject.name}`}/>{userObject.name}
-            </li>
+       return <ProfileView userDataObject={userObject} key={i} />
+      // <li key={i}>
+      //           <img src={`https://robohash.org/${userObject.name}`}/>{userObject.name}
+      //       </li>
+      console.log("User Object: ", userObject);
     })
 
      //***** We Can Nest Our Views So Easily!!!!!!!!
      //with curly braces we can reference outside variable.
     return (
-            <div className='main'>
+
+            <div>
                 <h3>On That React</h3>
                 <p>Still on It</p>
-                <h2>{greetingMessage}</h2>
+                <h2>{greetingMsg}</h2>
                 <NavView/>
+                <h4>All My Frands...</h4>
                 <FriendsListView/>
                 <h4>All My Enemies...</h4>
                 <ul>
@@ -61,31 +67,42 @@ let NavView = React.createClass({
 
 let FriendsListView = React.createClass({
   render: function(){
-    let listItemElementsJSX = [
-          <li><img src='https://robohash.org/Chip'/> ChaChaChip</li>,
-          <li><img src='https://robohash.org/donny'/>DONNY</li>,
-          <li><img src='https://robohash.org/newkirk'/>Mr. NewKirk</li>,
-          <li><img src='https://robohash.org/laslow'/>Laslow Renfrew</li>,
-          <li><img src='https://robohash.org/brett'/>Brett Stevens</li>,
-        ]
+    let friendsArrayOfObjects = [
+         {email: 'Victor', row: 'middle'},
+         {email: 'Jordan', row: 'middle'},
+         {email: 'Will', row: 'middle'},
+         {email: 'Michael', row: 'middle'},
+         {email: 'Jon', row: 'middle'}
+      ]
+
+      let friendsArrayJSX = friendsArrayOfObjects.map(function(friendObj, i){
+         return <ProfileView key={i} userDataObject={friendObj} />
+      })
+
       return (
-              <ul>
-                {listItemElementsJSX}
-              </ul>
-    )
-  }
+         <ul>
+            {friendsArrayJSX}
+         </ul>
+      )
+
 })
 
 
 let ProfileView = React.createClass({
   render: function(){
-    return <li key={i}>
-              <img src={`https://robohash.org/${userObject.name}`}/>{userObject.name}
-          </li>
+    return <li>
+              <img src={`https://robohash.org/${this.props.userDataObject.email}?size=70x70`}/> {this.props.userDataObject.email}
+           </li>
   }
 })
 //using ReactDOM.render to show our homeview.
 //ReactDOM.render(<HomeView/>, document.querySelector('#app-container'));
 
 //data should enter our React application through something called props  which looks something like this
+// fetching
+// $.getJSON("https://randomuser.me/api?results=24").then(function(serverRes){
+//    // rendering + passing the serverResponse as props (userDataList)
+//    ReactDOM.render(<HomeView userDataList={serverRes.results} />, document.querySelector('#app-container') )
+// })
+
 ReactDOM.render(< HomeView userDataList={userList} />, document.querySelector('#app-container'));
