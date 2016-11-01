@@ -14,7 +14,7 @@ console.log("React Object: ", React);
 //the creators of React decided to merge JSX and HTML so as to streamline the development process
 //babel compiles JSX into normal javascript
 
-//we can create constructors for react components using the CreateClass method
+//we can create constructors for react components using the createClass method
 
 let HomeView = React.createClass({
   render: function(){
@@ -52,7 +52,7 @@ let FriendsListView = React.createClass({
               <li>Mr. NewKirk</li>
               <li>Laslow Renfrew</li>
               <li>Brett Stevens</li>
-            </ul>      
+            </ul>
            )
   }
 })
