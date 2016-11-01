@@ -23,8 +23,10 @@ let HomeView = React.createClass({
     //will recieve an error of 'Adjacent JSX elements must be wrapped in an enclosing tag'
 
     let greetingMessage = 'Welcom to React!';
-    let jsxEnemyArray = this.props.userDataList.map(function(userObject) {
-      return <li>{userObject.name}</li>
+    let jsxEnemyArray = this.props.userDataList.map(function(userObject, i) {
+      return <li key={i}>
+                <img src={`https://robohash.org/${userObject.name}`}/>{userObject.name}
+            </li>
     })
 
      //***** We Can Nest Our Views So Easily!!!!!!!!
@@ -60,11 +62,11 @@ let NavView = React.createClass({
 let FriendsListView = React.createClass({
   render: function(){
     let listItemElementsJSX = [
-          <li>ChaChaChip</li>,
-          <li>DONNY</li>,
-          <li>Mr. NewKirk</li>,
-          <li>Laslow Renfrew</li>,
-          <li>Brett Stevens</li>,
+          <li><img src='https://robohash.org/Chip'/> ChaChaChip</li>,
+          <li><img src='https://robohash.org/donny'/>DONNY</li>,
+          <li><img src='https://robohash.org/newkirk'/>Mr. NewKirk</li>,
+          <li><img src='https://robohash.org/laslow'/>Laslow Renfrew</li>,
+          <li><img src='https://robohash.org/brett'/>Brett Stevens</li>,
         ]
       return (
               <ul>
@@ -74,6 +76,14 @@ let FriendsListView = React.createClass({
   }
 })
 
+
+let ProfileView = React.createClass({
+  render: function(){
+    return <li key={i}>
+              <img src={`https://robohash.org/${userObject.name}`}/>{userObject.name}
+          </li>
+  }
+})
 //using ReactDOM.render to show our homeview.
 //ReactDOM.render(<HomeView/>, document.querySelector('#app-container'));
 
